@@ -37,7 +37,7 @@ public class Touchview extends ImageView {
     private float[] lastEvent = null;
 
     //initiate variables
-    Bitmap bitmap;
+    //Bitmap bitmap;
     Paint paint = new Paint();
     Point point = new Point();
 
@@ -67,6 +67,10 @@ public class Touchview extends ImageView {
         paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(point.x, point.y, 30, paint);
         this.setImageMatrix(matrix);
+    }
+
+    public void resetMatrix() {
+        matrix.reset();
     }
 
     @Override
@@ -178,10 +182,10 @@ public class Touchview extends ImageView {
     }*/
 
     // load bitmap
-    public Bitmap createBitmap(File f) {
+    /*public Bitmap createBitmap(File f) {
         bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
         return bitmap;
-    }
+    }*/
 
     // Point class replacement
     class Point {

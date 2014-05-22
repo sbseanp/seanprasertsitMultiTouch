@@ -4,6 +4,8 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.net.Uri;
@@ -22,9 +24,8 @@ import java.io.File;
 
 public class MultiTouch extends ActionBarActivity {
 
-
-
     private static int RESULT_LOAD_IMAGE = 1;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,9 @@ public class MultiTouch extends ActionBarActivity {
             //Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
             Touchview myImage = (Touchview) findViewById(R.id.touchview);
-            Bitmap bit = myImage.createBitmap(imgFile);
-            myImage.setImageBitmap(bit);
+            //Bitmap bit = myImage.createBitmap(imgFile);
+            Bitmap temp = createBitmap(imgFile);
+            myImage.setImageBitmap(temp);
         }
     }
 
@@ -104,13 +106,18 @@ public class MultiTouch extends ActionBarActivity {
             File ftemp = new File(picturePath);
             //Touchview Touchview = (Touchview) findViewById(R.id.touchview);
             //Touchview.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-            Touchview Touchview = (Touchview) findViewById(R.id.touchview);
-            Bitmap bit = Touchview.createBitmap(ftemp);
-            Touchview.setImageBitmap(bit);
+            Touchview tv = (Touchview) findViewById(R.id.touchview);
+            Bitmap bit = createBitmap(ftemp);
+            tv.resetMatrix();
+            tv.setImageBitmap(bit);
 
         }
 
 
+    }
+    public Bitmap createBitmap(File f) {
+        bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+        return bitmap;
     }
 
 }
