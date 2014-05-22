@@ -63,9 +63,9 @@ public class Touchview extends ImageView {
         //this.setImageMatrix(matrix);
         //canvas.drawBitmap(bitmap, 0, 0, paint);
         paint.setColor(Color.RED);
-        paint.setStrokeWidth(15);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(point.x, point.y, 20, paint);
+        //paint.setStrokeWidth(15);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(point.x, point.y, 30, paint);
         this.setImageMatrix(matrix);
     }
 
@@ -119,18 +119,18 @@ public class Touchview extends ImageView {
                         float r = newRot - d;
                         float[] values = new float[9];
                         matrix.getValues(values);
-                        float tx = values[2];
-                        float ty = values[5];
+                        //float tx = values[2];
+                        //float ty = values[5];
                         float sx = values[0];
-                        float xc = (view.getWidth() / 2) * sx;
-                        float yc = (view.getHeight() / 2) * sx;
-                        matrix.postRotate(r, tx + xc, ty + yc);
+                        //float xc = (view.getWidth() / 2) * sx;
+                        //float yc = (view.getHeight() / 2) * sx;
+                        //matrix.postRotate(r, tx + xc, ty + yc);
+                        matrix.postRotate(r, mid.x, mid.y);
                     }
                 }
                 break;
         }
         invalidate();
-        //view.setImageMatrix(matrix);
         return true;
     }
 
