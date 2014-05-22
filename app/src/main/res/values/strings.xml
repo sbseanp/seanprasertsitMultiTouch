@@ -9,5 +9,6 @@
     <string name="about">About</string>
     <string name="no_settings">Haha, no settings!</string>
     <string name="haha">No Settings</string>
+    <string name="default_image">/ucsbmap.png</string>
 
 </resources>

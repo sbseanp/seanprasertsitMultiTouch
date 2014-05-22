@@ -5,40 +5,32 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.FloatMath;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 
 import java.io.File;
 
 
 public class MultiTouch extends ActionBarActivity {
 
+    // Set private variables
     private static int RESULT_LOAD_IMAGE = 1;
     private Bitmap bitmap;
 
+    // Build internal SD card string and set Bitmap to layout if file exists
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_touch);
         String root = Environment.getExternalStorageDirectory().toString();
-        File imgFile = new  File(root + "/ucsbmap.png");
+        File imgFile = new  File(root + getString(R.string.default_image));
         if(imgFile.exists()){
-
-            //Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
             Touchview myImage = (Touchview) findViewById(R.id.touchview);
-            //Bitmap bit = myImage.createBitmap(imgFile);
             Bitmap temp = createBitmap(imgFile);
             myImage.setImageBitmap(temp);
         }
@@ -64,6 +56,7 @@ public class MultiTouch extends ActionBarActivity {
             showSettingsDialog();
             return true;
         }
+        // Start Gallery intent
         if (id == R.id.picture) {
             Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, RESULT_LOAD_IMAGE);
@@ -88,6 +81,7 @@ public class MultiTouch extends ActionBarActivity {
         dialog.show(getFragmentManager(), "SettingsDialog");
     }
 
+    // Get from Gallery and then loads image chosen while resetting the matrix
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -104,20 +98,16 @@ public class MultiTouch extends ActionBarActivity {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             File ftemp = new File(picturePath);
-            //Touchview Touchview = (Touchview) findViewById(R.id.touchview);
-            //Touchview.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             Touchview tv = (Touchview) findViewById(R.id.touchview);
             Bitmap bit = createBitmap(ftemp);
             tv.resetMatrix();
             tv.setImageBitmap(bit);
-
         }
-
-
     }
+
+    // Make and return bitmap
     public Bitmap createBitmap(File f) {
         bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
         return bitmap;
     }
-
 }
