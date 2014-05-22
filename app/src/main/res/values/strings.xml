@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">seanprasertsitMultiTouch</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="pictures">Picture</string>
     <string name="help">Help</string>
